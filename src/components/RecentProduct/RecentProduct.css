@@ -1,0 +1,16 @@
+
+
+
+.product .btn{
+    padding-top : 2px;
+    padding-bottom: 2px;
+    transition: transform 1s , opacity 1s;
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.product:hover .btn{
+    transform: translateY(0%);
+    opacity: 1;
+}
+

@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.active{
+    font-weight: 900;
+    color: rgb(13, 131, 13);
+}
