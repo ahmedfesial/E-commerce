@@ -1,4 +1,5 @@
 🛒 E-commerce React App
+
 This is a responsive and fully functional E-commerce web application built with React.js, designed to simulate an online shopping experience. It allows users to:
 
 Browse products by category
