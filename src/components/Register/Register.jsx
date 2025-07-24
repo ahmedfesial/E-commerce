@@ -153,7 +153,7 @@ export default function Register() {
             </button>
 
             {/* path To login */}
-            <p className="pl-0 sm:pl-2 font-semibold text-xs sm:text-sm"> You Have Account Ready?<span><NavLink className="font-bold" to="/Login">Login</NavLink></span></p>
+            <p className="pl-0 sm:pl-2 font-semibold"> You Have Account Ready?<span> <NavLink className="font-bold text-green-800" to="/Login">Login</NavLink></span></p>
           </div>
         </form>
       </div>

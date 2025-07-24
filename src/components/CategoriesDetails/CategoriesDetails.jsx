@@ -84,7 +84,7 @@ export default function CategoriesDetails() {
 
             {/* Card */}
             <div className="w-full flex flex-col items-center">
-              <img src={category.imageCover} alt={category.title} className="w-full h-48 object-contain mb-4"/>
+              <img src={category.imageCover} alt={category.title} className="w-full h-48 object-contain mb-4" loading='lazy'/>
                 <div>
                     {/* Title */}
                     <h1 className="font-bold text-lg">{category.title.split(' ').slice(0,2).join(' ')}</h1>

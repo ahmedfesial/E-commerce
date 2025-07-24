@@ -46,7 +46,7 @@ export default function CheckOut({cartsId}) {
   return <>
 
         {/* Main */}
-        <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 '>
 
         {/*Header  */}
         <h1 className='text-center text-2xl sm:text-3xl md:text-4xl font-bold text-green-600 mb-3'>CheckOut Now</h1>
@@ -100,7 +100,7 @@ export default function CheckOut({cartsId}) {
 
              {/*Button Pay Now  */}
              <button className='bg-green-600 py-2 px-4 text-white rounded-lg font-semibold cursor-pointer'>
-             {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : 'Pay Now'}\
+             {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : 'Pay Now'}
              </button>   
 
         </form>

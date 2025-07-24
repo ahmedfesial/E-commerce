@@ -24,7 +24,7 @@ export default function ResetPassword() {
         email : formik.values.email , 
         newPassword : formik.values.newPassword
        })
-       .then((response)=> {
+       .then(()=> {
         toast.success('The password has been changed successfully')
         setisLoading(false)
         naviaget('/Login')
@@ -58,9 +58,9 @@ export default function ResetPassword() {
   // Code CSS
   return <>
     <section>
-      <div className="flex flex-col items-center justify-start mt-6 px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col items-center justify-start mt-1.5 px-6 py-8 mx-auto mb-8 lg:py-0">
 
-         <div className="w-full  bg-white rounded-lg shadow  md:mt-0 sm:max-w-md sm:p-8">
+         <div className="w-[400px]  bg-[#f6f6f6] rounded-lg md:mt-0 sm:max-w-md sm:p-8 shadow hover:shadow-2xl duration-300 transition-all">
             <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight md:text-2xl ">Change Password</h2>
 
               {/* Error Email */}

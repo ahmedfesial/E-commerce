@@ -43,7 +43,7 @@ export default function CashOrder({cartsId}) {
         setCart(data)
       }
     })
-    .catch((error)=>{
+    .catch(()=>{
       setisLoading(false)
       toast.error('An error occurred. Your order could not be completed')
     })
@@ -73,7 +73,7 @@ export default function CashOrder({cartsId}) {
   // Code CSS
   return <>
        {/*Main  */}
-       <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8'>
+       <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8 mb-21'>
 
         {/* Header */}
         <h1 className='text-center text-2xl sm:text-3xl md:text-4xl font-bold text-green-600 mb-3'>CheckOut Order</h1>

@@ -1,17 +1,19 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar'
-import Footer from '../Footer/Footer'
+const Navbar = React.lazy(()=> import('../Navbar/Navbar'))
+const Footer = React.lazy(()=> import('../Footer/Footer'))
 import { Outlet } from 'react-router-dom'
 
 export default function Layout() {
   return <>
-  <Navbar/>
+  <div className='flex flex-col'>
 
-  <div className='container mx-auto my-6 py-10'>
+  <Navbar/>
+  <div className='w-[90%] mx-auto  py-4'>
     <Outlet></Outlet>
   </div>
-
   <Footer/>
+
+  </div>
 
   </>
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -28,7 +28,7 @@ export default function ForgetPassword() {
           toast.success(data.message)
         }
       })
-      .catch((error)=>{
+      .catch(()=>{
         toast.error('No account found with this email')
         setErrorEmail('No account found with this email')
         setisLoading(false)
@@ -53,7 +53,7 @@ export default function ForgetPassword() {
 
   // Code CSS
   return <>
-          <div className="border border-black rounded-lg shadow-2xl w-fit mx-auto py-10 px-20"> 
+          <div className="rounded-lg shadow w-fit mx-auto py-10 px-20 mb-16 mt-4 bg-[#f6f6f6] hover:shadow-2xl duration-300 transition-all"> 
 
             {/* Main */}
             <div className="max-w-sm mx-auto">

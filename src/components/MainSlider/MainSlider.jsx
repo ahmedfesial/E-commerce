@@ -31,9 +31,9 @@ export default function MainSlider() {
         {/* Main Slider */}
         <div className='w-full md:w-3/4'>
           <Slider {...settings}>
-           <img src={slider1} alt="" className='w-full h-[200px] md:h-[400px] object-cover' />
-           <img src={slider2} alt="" className='w-full h-[200px] md:h-[400px] object-cover' />
-           <img src={slider3} alt="" className='w-full h-[200px] md:h-[400px] object-cover' />
+           <img src={slider1} alt="" className='w-full h-[200px] md:h-[400px] object-cover' loading='lazy'/>
+           <img src={slider2} alt="" className='w-full h-[200px] md:h-[400px] object-cover' loading='lazy'/>
+           <img src={slider3} alt="" className='w-full h-[200px] md:h-[400px] object-cover' loading='lazy'/>
           </Slider>
         </div>
 

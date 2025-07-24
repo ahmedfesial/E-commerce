@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext , useState } from 'react'
 import axios from 'axios'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
@@ -101,13 +101,13 @@ export default function WishList() {
   return <>
 
 
-    <h1 className='text-center text-2xl text-green-600 font-bold'>Your Favorite Products</h1>
-      <div className='flex flex-row flex-wrap'>
-          {data.length === 0 ? <div className='w-full text-center mt-52 text-4xl font-bold text-red-600'> Your wishlist is currently empty! </div> : <>
-          {data?.map((item) =>  <div key={item.id} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 my-2 py-2 px-4 shadow-lg hover:shadow-2xl'>
+      {data?.length === 0 ? " " : <h1 className='text-center text-2xl text-green-600 font-bold'>Your Favorite Products</h1>}
+      <div className='flex flex-row flex-wrap mb-43'>
+          {data.length === 0 ? <div className='w-full text-center mt-40 text-4xl font-bold text-red-600'> Your wishlist is currently empty! </div> : <>
+          {data?.map((item) =>  <div key={item.id} className=' w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 my-2 py-2 px-4 shadow-lg hover:shadow-2xl'>
 
           {/* Image */}
-          <img src={item.imageCover} alt="" className='w-full h-48 object-cover rounded' />
+          <img src={item.imageCover} alt="" className='w-full mx-auto md:w-full object-cover rounded' loading='lazy'/>
 
           {/* Category Name */}
           <h1 className='font-bold mt-1 text-green-600'>{item.category?.name}</h1>

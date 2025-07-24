@@ -74,7 +74,7 @@ export default function SliderCategory() {
         <h1 className='text-center my-2 font-bold text-green-600 text-2xl'>Shop Popular Category</h1>
         <Slider {...settings}>
             {data?.map((category)=> <div>
-                <img src={category.image} className='w-full' style={{height:'150px'}} alt={category.name} />
+                <img src={category.image} className='w-full object-contain' style={{height:'150px'}} alt={category.name} loading='lazy'/>
             </div>)}
         </Slider>
     </div>

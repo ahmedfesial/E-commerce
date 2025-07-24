@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className=" bg-gray-400 fixed top-0 right-0 left-0 z-20">
+      <nav className=" bg-gray-400 top-0 right-0 left-0 z-20">
         <div className="container mx-auto p-2 flex justify-between items-center">
           {/* Left */}
           <div className="flex items-center w-full lg:w-auto justify-between lg:justify-start">

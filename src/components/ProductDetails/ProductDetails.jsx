@@ -1,8 +1,9 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom'
 import Slider from "react-slick";
+import { CartContext } from '../../Context/CartContext';
 
 
 export default function ProductDetails() {
@@ -11,25 +12,44 @@ export default function ProductDetails() {
     var settings = {
     dots: true,
     infinite: true,
-    speed: 1000,
+    speed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows : false,
-    autoplay : true
+    autoplay : true,
     };
 
+     let {addProductToCart , setCart} =useContext(CartContext)
     const [getCategory, setGetCategory] = useState([])
     const [productDetail, setProductDetail] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [isLoading, setisLoading] = useState(true)
 
     // Set ID
     let {id , category} =  useParams()
 
 
+    // Add ProductTo cart
+    async function addProduct(ProductId){
+      setLoading(true)
+      let response = await addProductToCart(ProductId)
+      if(response.data.status === "success"){
+        setCart(response.data)
+        setLoading(false)
+        toast.success(response?.data?.message || 'Add Product To Cart')
+        console.log(response);
+      }
+      else{
+        toast.error(response?.data?.statusMsg || 'Unexpected Error')
+        setLoading(false)
+      }
+    }
+
+
     // get Prodtuct Details Call API
-    function getProductDetails(id){
+    function getProductDetails(id , signal){
       setisLoading(true)
-        axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
+        axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}` , {signal})
         .then(({data})=>{
             setProductDetail(data.data)
             setisLoading(false)
@@ -38,6 +58,7 @@ export default function ProductDetails() {
             toast(error.response.data.message)
             setisLoading(false)
         })
+        
     }
 
 
@@ -49,6 +70,7 @@ export default function ProductDetails() {
             let allProduct = data.data
             let  categories = allProduct.filter((product)=> product.category.name == category)
             setGetCategory(categories)
+            // console.log(categories);
             setisLoading(false)
         })
         .catch((error)=>{
@@ -58,10 +80,19 @@ export default function ProductDetails() {
     }
 
 
+
     useEffect(()=>{
-        getProductDetails(id)
+
+        const controller = new AbortController();
+
+        getProductDetails(id , controller.signal)
         getCategoryProducts(category)
+
+        return ()=> controller.abort()
     },[id , category])
+
+
+
 
     // Loading Page
     if(isLoading){
@@ -80,8 +111,8 @@ export default function ProductDetails() {
     <div className="w-full md:w-1/4 px-2 pl-2 mb-4 md:mb-0">
       <Slider {...settings}>
         {productDetail?.images?.map((image, idx) => (
-          <div key={idx}>
-            <img src={image} alt={image.title} className="w-full h-auto object-contain" />
+          <div key={idx} className='w-full'>
+            <img src={image} alt={image.title} className="w-[50%] mx-auto md:w-full h-auto object-contain" loading='lazy'/>
           </div>))}
       </Slider>
     </div>
@@ -96,23 +127,24 @@ export default function ProductDetails() {
       <h1 className="font-light my-2 text-sm md:text-base">{productDetail?.description}</h1>
 
       {/* Quantity */}
-      <h1 className="text-green-600 font-semibold mt2">Quantity :</h1> {productDetail?.quantity}
+      <h1 className="text-green-600 font-semibold mt-2">Quantity : {productDetail?.quantity} </h1>
 
       {/*Sold  */}
-      <h1 className="text-red-600 font-semibold">Sold :</h1> {productDetail?.sold}
+      <h1 className="text-red-600 font-semibold my-2">Sold : {productDetail?.sold}</h1>
 
       {/*Price & rating  */}
-      <div className="flex flex-col sm:flex-row flex-wrap justify-between">
-        <h1 className=" mt-2 font-bold">Price :</h1> {productDetail?.price} EGP
+      <div className="flex flex-row my-2 flex-wrap justify-between">
+        <h1 className=" font-bold">Price : {productDetail?.price} EGP </h1>
         <h1>{productDetail?.ratingsAverage}{" "} <i className="fa-solid fa-star text-yellow-400"></i></h1>
       </div>
 
       {/* Button Add to card */}
-      <button className="font-bold py-2 px-4 w-full bg-green-600 text-white cursor-pointer rounded-lg mt-2">
-        Add To Cart
+      <button onClick={()=> addProduct(productDetail._id)} className="font-bold my-2 py-2 px-4 w-full bg-green-600 text-white cursor-pointer rounded-lg mt-2 hover:bg-green-800 duration-300 transition-all">
+          {loading ? <i className="fa-solid fa-spinner fa-spin"></i> : 'Add To Cart'}
       </button>
     </div>
   </div>
+
 
   {/*Main Category  */}
   <div className="flex flex-wrap">
@@ -147,5 +179,6 @@ export default function ProductDetails() {
       </div>
     )}
   </div>
+  
 </>
 }

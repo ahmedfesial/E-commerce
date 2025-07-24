@@ -68,20 +68,21 @@ export default function Products() {
   //Code CSS
   return <>
       {/* Main Div */}
+       <h1 className='text-center text-4xl font-bold text-green-700 mb-4'>All Products</h1> 
        <div className='flex flex-row flex-wrap'>
-        {data?.map((product) => <div className='w-full shadow-lg hover:shadow-2xl sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4' key={product.id}>
+        {data?.map((product) => <div className='shadow-lg rounded-md hover:shadow-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 duration-300 transition-all' key={product._id}>
 
         {/*Card  */}
-        <div className='product py-2'>
+        <div className='product py-2 px-4'>
 
           {/* To go Product Details Page */}
           <Link to={`/ProductDetails/${product.id}/${product.category.name}`}>
 
-          <img src={product.imageCover} alt={product.title} className="w-auto max-w-full sm:w-52"/>
+          <img src={product.imageCover} alt={product.title} className="w-auto max-w-full sm:w-52" loading='lazy'/>
 
           <h1 className='text-green-600'>{product.category.name}</h1>
 
-          <h1 className='my-2 font-bold'>{product.title.split(' ').slice(0, 2).join(' ')}</h1>
+          <h1 className='my-2 font-bold'>{product.title.split(' ').slice(0, 1).join(' ')}</h1>
 
           {/* Price & Ratings */}
           <div className='flex justify-between items-center'>
@@ -92,7 +93,7 @@ export default function Products() {
           </Link>
 
           {/*Button  Add to card  */}
-          <button onClick={()=>addProduct(product.id)} className='w-full bg-green-600 p-2 px-4 text-white cursor-pointer rounded-lg mt-2 hover:bg-green-700'>
+          <button onClick={()=>addProduct(product.id)} className='w-full bg-green-600 p-2 px-4 text-white cursor-pointer font-semibold rounded-lg my-2 hover:bg-green-700'>
           {currentId === product.id && loading? <i className="fa-solid fa-spinner fa-spin"></i> : 'Add to cart'}
           </button>
       </div>

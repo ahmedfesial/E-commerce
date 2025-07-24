@@ -48,7 +48,7 @@ export default function Categories() {
             {/* lint to Category Details Page */}
             <Link to={`/CategoriesDetails/${category._id}`}  className="w-full flex flex-col items-center">
 
-              <img src={category.image} alt={category.name} className="w-full h-48 object-contain mb-4"/>
+              <img src={category.image} alt={category.name} className="w-full h-48 object-contain mb-4" loading="lazy"/>
 
               {/* Category Name & Slug */}
               <div className="text-center w-full">

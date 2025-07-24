@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Context/CartContext";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Cart({setcartId}) {
   
@@ -9,37 +11,61 @@ export default function Cart({setcartId}) {
 
   const [isLoading, setIsLoading] = useState(true)
   const [cartDetails, setCartDetails] = useState(null)
+  const [error, setError] = useState('')
 
   // get data Call API
   async function getCartProduct() {
-    setIsLoading(true)
-    let {data} = await userLoggedCart();
-    setCartDetails(data.data)
-    setIsLoading(false)
-    setcartId(data.data._id)
+    try{
+      setIsLoading(true)
+      let {data} = await userLoggedCart();
+      setCartDetails(data.data)
+      setIsLoading(false)
+      setcartId(data.data._id)
+    }catch(error){
+      setError(error)
+      toast.error('ERROR')
+    }finally{
+        setIsLoading(false)
+    }
   }
 
    
   //Delete Product From Cart 
    async function delCart(productId){
-    let response = await removeCart(productId)
-    setCartDetails(response.data.data)
-    setCart(response.data)
+
+    try{
+      let response = await removeCart(productId)
+      // Has anything changed ?
+      setCartDetails(response.data.data)
+      setCart(response.data)
+    }catch(error){
+      setError(error)
+      toast.error('Error')
+    }
   }
 
   // Delete All Products
   async function delAllCart(){
-    let response = await removeAllCart()
-    setCartDetails(response.data.data)
-    setCart(response.data)
+      try{
+        let response = await removeAllCart()
+        setCartDetails(response.data.data)
+        setCart(response.data)
+      }catch(error){
+        setError(error)
+        toast.error('Error')
+      }
   }
 
 
   // Update Product Count + & -
   async function updateCartProduct(productId , count){
-    let response = await updateCart(productId , count)
-    setCartDetails(response.data.data)
-    console.log(response);
+    try{
+      let response = await updateCart(productId , count)
+      setCartDetails(response.data.data)
+    }catch(error){
+      setError(error)
+      toast.error('Error')
+    }
   }
 
   useEffect(() => {
@@ -53,27 +79,34 @@ export default function Cart({setcartId}) {
                   <i className='fas fa-spinner fa-spin fa-5x text-green-400'></i>
             </div>
   }
+  if(error){
+      return <div className='min-h-96 flex items-center justify-center my-12'>
+                <h1>{error}</h1>
+            </div>
+  }
 
 
   // Code CSS
   return <>
       {/* Main */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto sm:rounded-lg mb-20">
 
         {/* Header */}
         <h1 className="text-center font-bold text-2xl sm:text-3xl my-4 text-green-600">Shopping Cart</h1>
 
         {/* Table Cart */}
-        <table className="w-full text-base sm:text-lg text-left rtl:text-right text-black">
+        
+        {cartDetails?.products.length === 0 ? <div className="w-full text-center text-gray-500 my-8 text-4xl font-bold">Your cart is empty 🛒</div> : 
+          <table className="w-[80%] md:w-full text-base sm:text-lg text-left rtl:text-right text-black">
 
         {/*Table Head  */}
         <thead className="text-sm sm:text-md uppercase bg-gray-300">
           <tr>
-            <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">Image</th>
-            <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">Product</th>
-            <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">Qty</th>
-            <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">Price</th>
-            <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3 text-center">Action</th>
+            <th scope="col" className="px-2 py-2 md:px-6 sm:py-3 text-center">Image</th>
+            <th scope="col" className="px-2 py-2 md:px-6 sm:py-3 text-center">Product</th>
+            <th scope="col" className="px-2 py-2 md:px-6 sm:py-3 text-center">Qty</th>
+            <th scope="col" className="px-2 py-2 md:px-6 sm:py-3 text-center">Price</th>
+            <th scope="col" className="px-2 py-2 md:px-6 sm:py-3 text-center">Action</th>
          </tr>
         </thead>
 
@@ -83,7 +116,7 @@ export default function Cart({setcartId}) {
           <td className="p-2 sm:p-4 text-center">
 
             {/* Image */}
-            <img src={product.product.imageCover} className="w-12 sm:w-16 md:w-32 max-w-full max-h-full mx-auto" alt={product.product.title}/>
+            <img src={product.product.imageCover} className="object-cover   sm:w-16 md:w-32 max-w-full max-h-full mx-auto" alt={product.product.title} loading="lazy"/>
           </td>
           {/* Title */}
           <td className="px-4 py-2 sm:px-6 sm:py-4 font-semibold text-center">
@@ -97,7 +130,7 @@ export default function Cart({setcartId}) {
             <div className="flex items-center justify-center">
 
               {/* Button Count - */}
-              <button onClick={() => updateCartProduct(product.product.id, product.count - 1)} className="inline-flex items-center justify-center p-1 me-2 text-sm font-medium h-6 w-6 text-black bg-white borde border-gray-300 rounded-full hover:bg-gray-100">
+              <button onClick={() => {if(product.count > 1){ updateCartProduct(product.product.id , product.count -1)}} } className="inline-flex items-center justify-center p-1 me-2 text-sm font-medium h-6 w-6 text-black bg-white borde border-gray-300 rounded-full hover:bg-gray-100">
                 <span className="sr-only">Decrease Quantity</span>
                 <svg className="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 18 2" stroke="currentColor"  strokeWidth="2" strokeLinecap="round">
                 <path d="M1 1h16" />
@@ -129,7 +162,8 @@ export default function Cart({setcartId}) {
         </tr>
       )}
     </tbody>
-  </table>
+        </table>
+        }
   
   {/* Total Price */}
   <h1 className="text-2xl sm:text-4xl px-2 text-green-600 my-2 font-bold">
@@ -142,22 +176,22 @@ export default function Cart({setcartId}) {
   </button>
 
   {/* Button Pay Cash Or Card */}
-  <div className="flex flex-col sm:flex-row gap-2">
+  <div className="flex flex-col sm:flex-row gap-2 ms-2">
 
     {/* To Pay Card to checkout Page */}
     <Link to={"/CheckOut"}>
-      <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white cursor-pointer font-bold w-full sm:w-auto">
+      <button disabled={cartDetails?.products.length === 0} className={`${cartDetails?.products.length === 0 ? 'opacity-50 cursor-not-allowed' : ''} bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white cursor-pointer font-bold md:my-4 w-full sm:w-auto`}>
         CheckOut By Card
       </button>
     </Link>
 
     {/* To Pay Cash to Cash Order Page */}
     <Link to={"/CashOrder"}>
-      <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white cursor-pointer font-bold w-full sm:w-auto">
+      <button disabled={cartDetails?.products.length === 0} className={`${cartDetails?.products.length === 0 ? 'opacity-50 cursor-not-allowed' : ''} bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white cursor-pointer font-bold w-full sm:w-auto md:my-4`}>
         CheckOut By Cash
       </button>
     </Link>
   </div>
-</div>
+      </div>
 </>
 }

@@ -55,7 +55,7 @@ export default function Login() {
   // Code CSS
   return <>
       {/*Main Div  */}
-      <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div className='container max-w-xl mx-auto px-4 sm:px-6 lg:px-8 mb-35'>
 
       {/* Header */}
       <h1 className='text-center text-2xl sm:text-3xl md:text-4xl font-bold text-green-600 mb-3'>Login Now</h1>

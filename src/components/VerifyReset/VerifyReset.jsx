@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import { data, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import * as Yub from 'yup'
@@ -57,7 +57,7 @@ export default function VerifyReset() {
   // Code CSS
   return <>
   {/* Main */}
-    <div className="border border-black rounded-lg shadow-2xl w-fit mx-auto py-10 px-20"> 
+    <div className="bg-[#f6f6f6] rounded-lg shadow w-fit mx-auto py-10 px-20 mb-32 hover:shadow-2xl duration-300 transition-all mt-6"> 
 
             <div className="max-w-sm mx-auto">
 
