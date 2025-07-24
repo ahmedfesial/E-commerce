@@ -1,12 +1,40 @@
-# React + Vite
+🛒 E-commerce React App
+This is a responsive and fully functional E-commerce web application built with React.js, designed to simulate an online shopping experience. It allows users to:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Browse products by category
 
-Currently, two official plugins are available:
+View detailed product information
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Add/remove items from cart and wishlist
 
-## Expanding the ESLint configuration
+Update product quantities
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Checkout seamlessly
+
+Persist data with localStorage
+
+Fetch real product data using RESTful API
+
+🔧 Tech Stack
+React.js (with React Router & Context API)
+
+Axios for API requests
+
+React Query for efficient data fetching and caching
+
+Tailwind CSS for modern and responsive styling
+
+React Hot Toast for user-friendly notifications
+
+🚀 Features
+Dynamic product listing and filtering
+
+Add to cart / wishlist with instant feedback
+
+Cart quantity management & total calculation
+
+Category-based product recommendations
+
+Loading states & error handling
+
+Clean and reusable components
